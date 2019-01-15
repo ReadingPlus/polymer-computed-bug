@@ -1,0 +1,71 @@
+<link
+  rel="import"
+  href="../polymer/polymer.html"
+>
+
+
+<dom-module id="polymer-computed-bug">
+  <template>
+  </template>
+  <script>
+    (function() {
+      'use strict';
+
+      Polymer({
+        is: 'polymer-computed-bug',
+
+        behaviors: [{
+            properties: {
+              dependencyPropA: {
+                type: Number,
+                value: 1
+              },
+
+              computedProp: {
+                computed: '_computeProp(dependencyPropA)'
+              }
+            },
+
+            _computeProp: function(dependencyPropA) {
+              console.debug('compute prop behavior A',
+                dependencyPropA)
+              return dependencyPropA;
+            }
+          },
+
+          {
+            properties: {
+              dependencyPropB: {
+                type: Number,
+                value: 2
+              },
+
+              computedProp: {
+                computed: '_computeProp(dependencyPropA, dependencyPropB)'
+              }
+            },
+
+            observers: [
+              '_computedPropDepsChanged(dependencyPropA, dependencyPropB)'
+            ],
+
+            _computeProp: function(dependencyPropA,
+              dependencyPropB) {
+              console.debug('compute prop behavior B',
+                dependencyPropA, dependencyPropB)
+              return [dependencyPropA, dependencyPropB];
+            },
+
+            _computedPropDepsChanged: function(dependencyPropA,
+              dependencyPropB) {
+              this.observedComputedPropDeps = [dependencyPropA,
+                dependencyPropB
+              ];
+            }
+          }
+        ],
+      });
+    })();
+
+  </script>
+</dom-module>

@@ -1,0 +1,36 @@
+<link rel="import" href="../polymer/polymer-element.html">
+
+<dom-module id="polymer-computed-bug">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <h2>Hello [[prop1]]!</h2>
+  </template>
+
+  <script>
+    /**
+     * `polymer-computed-bug`
+     * 
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class PolymerComputedBug extends Polymer.Element {
+      static get is() { return 'polymer-computed-bug'; }
+      static get properties() {
+        return {
+          prop1: {
+            type: String,
+            value: 'polymer-computed-bug'
+          }
+        };
+      }
+    }
+
+    window.customElements.define(PolymerComputedBug.is, PolymerComputedBug);
+  </script>
+</dom-module>
